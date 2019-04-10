@@ -1,5 +1,6 @@
 package com.lance.guess
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -22,17 +23,19 @@ class MainActivity : AppCompatActivity() {
 //        val txtShow = textView
 //        txtShow.setText("test: ${word}")
 
-        bt_submit.setOnClickListener{
-            Toast.makeText(this, "OnClick",Toast.LENGTH_LONG).show()
+        bt_submit.setOnClickListener {
+            val inputNumber = ed_number.text.toString()
+            Toast.makeText(this, inputNumber, Toast.LENGTH_LONG).show()
 
             AlertDialog.Builder(this)
-                .setTitle("Title")
-                .setMessage("Hello World")
-                .setPositiveButton("ok", null)
+                .setTitle("Input Number")
+                .setMessage(inputNumber)
+                .setPositiveButton("ok") { _ , _ ->
+                    var intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("result", inputNumber)
+                    startActivity(intent)
+                }
                 .show()
         }
     }
-
-
-
 }
