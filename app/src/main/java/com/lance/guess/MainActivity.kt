@@ -3,6 +3,9 @@ package com.lance.guess
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +33,24 @@ class MainActivity : AppCompatActivity() {
 
             replay(inputNumber)
         }
+
+        spinner.adapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            arrayOf("one", "two", "three")
+        )
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                Toast.makeText(this@MainActivity, arrayOf("one", "two", "three")[position], Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
     private fun replay(inputNumber: String) {
@@ -41,14 +62,14 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("result", inputNumber)
                 startActivityForResult(intent, REQUEST_RESULT)
             }
-            .setNeutralButton("cancel") { dialog, which ->  
+            .setNeutralButton("cancel") { dialog, which ->
 
             }
             .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == REQUEST_RESULT && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_RESULT && resultCode == Activity.RESULT_OK) {
             replay("${data?.getStringExtra("RESULT_TEXT")}")
         }
     }
