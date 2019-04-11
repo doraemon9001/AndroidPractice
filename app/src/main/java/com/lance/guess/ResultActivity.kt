@@ -1,6 +1,9 @@
 package com.lance.guess
 
+import android.app.Activity
+import android.app.Instrumentation
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,5 +28,12 @@ class ResultActivity : AppCompatActivity() {
         Log.d("REC_RESULT", getSharedPreferences("GUESS", Context.MODE_PRIVATE)
             .getString("REC_RESULT", ""))
 
+        bt_back.setOnClickListener{view ->
+            val intent = Intent()
+            intent.putExtra("RESULT_TEXT", resultText)
+            setResult(Activity.RESULT_OK, intent)
+            //. 回到上一個activity
+            finish()
+        }
     }
 }
