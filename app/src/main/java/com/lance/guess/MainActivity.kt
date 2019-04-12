@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity() {
                     .show()
             }
         }
+
+        bt_recycleview.setOnClickListener { view ->
+            var intent = Intent(this, RecycleActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun replay(inputNumber: String) {
